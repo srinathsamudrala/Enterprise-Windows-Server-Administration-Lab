@@ -39,3 +39,49 @@ The database file is called NTDS.DIT (NT Directory Services Directory Informatio
 C:\Windows\NTDS\NTDS.dit
 
 This file is one of the most important components of Active Directory and should be protected and backed up regularly because it contains all the domain information.
+
+# Installing Active Directory Domain Services (AD DS)
+
+After completing the basic server configuration, I installed the Active Directory Domain Services (AD DS) role using Server Manager.
+
+Steps
+Open Server Manager.
+Click Manage and select Add Roles and Features.
+Click Next until you reach Server Roles.
+Select Active Directory Domain Services (AD DS).
+When prompted, click Add Features to install the required management tools.
+Click Next and continue with the default settings.
+Click Install and wait for the installation to complete.
+Once the installation is finished, click Close.
+
+After installing the AD DS role, the server is not yet a Domain Controller. The next step is to promote the server to a Domain Controller, where a new domain or an existing domain can be configured.
+
+# Promoting the Server to a Domain Controller
+
+After installing the AD DS role, the next step was to promote the server to a Domain Controller.
+
+Steps
+Open Server Manager.
+Click the Notification flag at the top right.
+Select Promote this server to a domain controller.
+Choose Add a new forest (for a new environment).
+Enter the Root Domain Name (for example, company.local).
+Click Next.
+Select the Forest Functional Level and Domain Functional Level.
+Set the Directory Services Restore Mode (DSRM) password.
+Click Next through the remaining configuration pages.
+Review the settings and click Install.
+The server will automatically restart after the installation is complete.
+
+After the restart, the Windows Server becomes a Domain Controller, and the new Active Directory domain is created. From this point, the server is ready to manage users, computers, groups, and other Active Directory resources.
+
+Verification
+
+After logging in, I verified that the Domain Controller was working correctly by opening:
+
+Active Directory Users and Computers (ADUC)
+Active Directory Administrative Center (ADAC)
+DNS Manager
+Group Policy Management Console (GPMC)
+
+I also confirmed that the server was using the newly created domain and that all Active Directory services were running successfully.
