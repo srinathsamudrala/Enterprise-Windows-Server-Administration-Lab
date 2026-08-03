@@ -1,5 +1,5 @@
-Windows Server Installation
-Windows Server Lab Setup
+# Windows Server Installation
+# Windows Server Lab Setup
 
 To build this Windows Server Administration lab, I first installed a virtualization platform on my laptop. I used Oracle VirtualBox (VMware Workstation can also be used) to create a virtual environment where multiple operating systems could run simultaneously. This allowed me to simulate an enterprise network without requiring multiple physical computers.
 
@@ -11,7 +11,7 @@ Next, I created the virtual machines required for the lab environment. The prima
 
 While creating each virtual machine, I allocated the required hardware resources such as CPU, RAM, and storage based on the available resources of my host computer. I also selected the Windows Server ISO as the bootable installation media and stored all virtual machine files in a separate directory to keep the lab organized.
 
-Example Configuration
+# Example Configuration
 Operating System: Windows Server 2022 Evaluation
 Processor: 2 Virtual CPUs
 Memory: 4 GB RAM
@@ -21,7 +21,7 @@ VM Location: D:\Virtual Machines\
 
 Once the virtual machines were created, I installed the operating systems and completed the initial Windows Server setup before moving on to the server configuration.
 
-Network Topology
+# Network Topology
 
 To ensure proper communication between all systems, I connected every virtual machine to the same virtual network using the virtualization platform. This allowed the Domain Controller and client systems to communicate with each other throughout the lab.
 
