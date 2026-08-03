@@ -16,15 +16,6 @@ Organize users and computers using Organizational Units (OUs).
 Apply Group Policies to users and computers.
 Control who can access files, folders, printers, and other resources.
 
-# Active Directory Database (NTDS.DIT)
-
-The Active Directory database stores all the information about the domain, such as users, computers, groups, Organizational Units (OUs), and security settings. This database is used by the Domain Controller to authenticate users and manage Active Directory.
-
-The database file is called NTDS.DIT (NT Directory Services Directory Information Tree). By default, it is stored in the following location:
-
-C:\Windows\NTDS\NTDS.dit
-
-This file is one of the most important components of Active Directory and should be protected and backed up regularly because it contains all the domain information.
 
 # Requirements Before Deploying a Domain Controller
 
@@ -97,3 +88,95 @@ I confirmed the installation by opening:
 - Server Manager
 
 I also confirmed that the server had been successfully promoted to a Domain Controller and that the Active Directory services were running properly.
+
+# How to check Server or Client: 
+Run net accounts in Command Prompt to identify whether the machine is a Windows Server (Domain Controller) or a Windows Workstation.
+
+# Why is DNS important? 
+DNS translates server names into IP addresses, allowing clients to locate and communicate with the Domain Controller.
+
+# What is a Server? 
+A server is a computer that provides services such as Active Directory, DNS, DHCP, and authentication to client computers.
+
+# What is a Client (Workstation)? 
+A client is a computer that connects to the server to access domain resources and services.
+
+# NTDS.DIT: 
+The NTDS.DIT file is the Active Directory database that stores information about users, groups, computers, and other domain objects.
+By default, it is stored in the following location:
+
+C:\Windows\NTDS\NTDS.dit
+
+# Domain Controller (DC): 
+A Domain Controller is a Windows Server that manages Active Directory and authenticates users and computers in the domain.
+
+# Domain: 
+A domain is a logical group of users, computers, and resources managed together by Active Directory.
+
+
+## SYSVOL
+
+The **SYSVOL** folder stores Group Policy Objects (GPOs), logon scripts, and other files that are shared and replicated between all Domain Controllers.
+
+**Default Location:**
+
+```text
+C:\Windows\SYSVOL
+```
+
+---
+
+## Active Directory Logs
+
+Active Directory logs can be viewed using **Event Viewer**.
+
+**Steps:**
+
+1. Open **Event Viewer**.
+2. Navigate to:
+
+```text
+Windows Logs
+ ├── Application
+ ├── Security
+ ├── System
+```
+
+For Active Directory-specific logs:
+
+```text
+Applications and Services Logs
+ └── Directory Service
+```
+
+These logs help troubleshoot authentication, replication, DNS, and other Active Directory issues.
+
+---
+
+# Installing Windows Client Operating System
+
+After configuring the Domain Controller, I created a new virtual machine for the client system. I mounted the **Windows 10** or **Windows 11 ISO** and completed the Windows installation.
+
+During the setup, I selected the required language, keyboard layout, and edition of Windows. After the installation finished, I created a local administrator account and completed the initial Windows setup.
+
+Before joining the client to the domain, I configured the client's network settings and set the **Preferred DNS Server** to the IP address of the Domain Controller so that the client could locate the domain.
+
+---
+
+# Joining the Client to the Domain
+
+After installing the Windows client, I joined it to the Active Directory domain.
+
+### Steps
+
+1. Open **This PC** and select **Properties**.
+2. Click **Rename this PC (Advanced)** or **Change settings**.
+3. Under the **Computer Name** tab, click **Change**.
+4. Select **Domain**.
+5. Enter the domain name (Example: `company.local`).
+6. Click **OK**.
+7. Enter the **Domain Administrator** username and password when prompted.
+8. Click **OK** to authorize the domain join.
+9. Restart the client computer.
+
+After the restart, the client becomes a member of the domain, and users can sign in using their domain accounts.
