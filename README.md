@@ -1,8 +1,6 @@
 # Enterprise-Windows-Server-Administration-Lab
 Enterprise Windows Server Administration Lab featuring Active Directory Domain Services (AD DS), DNS, DHCP, Group Policy, File Services, NTFS/ReFS, user and computer management, domain controllers, backup, security permissions, and enterprise infrastructure troubleshooting.
 
-# Enterprise Windows Server Administration Lab
-
 ## Overview
 
 This repository documents my hands-on implementation of an Enterprise Windows Server Administration environment deployed in a virtual lab. The project was designed to simulate a real-world enterprise infrastructure, allowing me to gain practical experience in deploying, configuring, administering, and troubleshooting core Windows Server services.
