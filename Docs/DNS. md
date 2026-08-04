@@ -1,0 +1,551 @@
+# Domain Name System (DNS)
+
+## What is DNS?
+
+**Domain Name System (DNS)** is a service that translates human-readable domain names into IP addresses. Instead of remembering IP addresses, users can simply enter a website name, and DNS finds the corresponding IP address.
+
+For example:
+
+```text
+www.microsoft.com  →  20.x.x.x
+```
+
+Without DNS, users would need to remember the IP address of every website or server they want to access.
+
+---
+
+# Why Do We Use DNS?
+
+DNS provides several benefits:
+
+- Converts domain names to IP addresses.
+- Makes browsing the internet easier.
+- Allows computers to locate servers and services.
+- Supports Active Directory authentication and domain services.
+- Reduces the need to remember IP addresses.
+
+---
+
+# DNS in WAN (Internet)
+
+On the Internet (WAN), DNS allows users to access websites using domain names instead of IP addresses.
+
+Example:
+
+```text
+User
+
+↓
+
+www.google.com
+
+↓
+
+DNS Server
+
+↓
+
+142.250.xxx.xxx
+
+↓
+
+Google Web Server
+```
+
+The DNS server resolves the domain name into an IP address, allowing the browser to connect to the correct web server.
+
+---
+
+# DNS Resolution Process
+
+When a user enters a website name, DNS performs several steps to locate the correct IP address.
+
+### Step 1
+
+The user enters:
+
+```text
+www.microsoft.com
+```
+
+### Step 2
+
+The browser checks its local DNS cache.
+
+### Step 3
+
+If not found, the request is sent to the configured DNS server.
+
+### Step 4
+
+If the DNS server does not know the answer, it queries the Root DNS Server.
+
+### Step 5
+
+The Root Server directs the request to the appropriate Top-Level Domain (TLD) server.
+
+### Step 6
+
+The TLD server directs the request to the Authoritative DNS Server.
+
+### Step 7
+
+The Authoritative DNS Server returns the IP address.
+
+### Step 8
+
+The DNS server sends the IP address back to the client.
+
+### Step 9
+
+The browser connects to the destination web server.
+
+---
+
+# DNS Resolution Diagram
+
+```text
+User
+
+↓
+
+Local DNS Cache
+
+↓
+
+DNS Server
+
+↓
+
+Root Server
+
+↓
+
+Top Level Domain (.com)
+
+↓
+
+Authoritative DNS Server
+
+↓
+
+IP Address Returned
+
+↓
+
+Website Opens
+```
+
+---
+
+# Common DNS Errors While Accessing Websites
+
+Some common DNS-related issues include:
+
+- DNS Server Not Responding
+- DNS_PROBE_FINISHED_NXDOMAIN
+- Server Not Found
+- Name Resolution Failure
+- Incorrect DNS Configuration
+- DNS Cache Issues
+- Network Connectivity Problems
+
+### Common Troubleshooting Commands
+
+Display DNS cache:
+
+```cmd
+ipconfig /displaydns
+```
+
+Flush DNS cache:
+
+```cmd
+ipconfig /flushdns
+```
+
+Register DNS records:
+
+```cmd
+ipconfig /registerdns
+```
+
+Test name resolution:
+
+```cmd
+nslookup google.com
+```
+
+---
+
+# DNS Hierarchy
+
+DNS follows a hierarchical structure.
+
+```text
+                     Root (.)
+
+                        │
+
+        ┌───────────────┼───────────────┐
+
+       .com            .org           .net
+
+         │
+
+   microsoft.com
+
+         │
+
+   www.microsoft.com
+```
+
+Each level helps locate the correct DNS server responsible for the requested domain.
+
+---
+
+# Root DNS Server
+
+The **Root DNS Server** is the highest level of the DNS hierarchy.
+
+Its role is to direct queries to the correct Top-Level Domain (TLD) server, such as `.com`, `.org`, or `.net`. It does not store individual website records.
+
+---
+
+# Authoritative DNS Server
+
+An **Authoritative DNS Server** stores the original DNS records for a domain and provides the final, trusted answer to DNS queries.
+
+Example:
+
+```text
+company.local
+```
+
+The authoritative server contains records such as:
+
+- Host (A)
+- CNAME
+- MX
+- PTR
+
+---
+
+# Non-Authoritative DNS Server
+
+A **Non-Authoritative DNS Server** returns cached DNS information instead of the original records.
+
+It answers queries using previously resolved data, reducing lookup time and network traffic.
+
+---
+
+# Fully Qualified Domain Name (FQDN)
+
+An **FQDN** is the complete domain name that uniquely identifies a host in DNS.
+
+Example:
+
+```text
+server01.company.local
+```
+
+Structure:
+
+```text
+Host Name + Domain Name + Top-Level Domain
+```
+
+---
+
+# DNS Lookup Types
+
+## Forward Lookup
+
+Converts a domain name into an IP address.
+
+Example:
+
+```text
+server01.company.local
+
+↓
+
+192.168.1.10
+```
+
+---
+
+## Reverse Lookup
+
+Converts an IP address back to a host name.
+
+Example:
+
+```text
+192.168.1.10
+
+↓
+
+server01.company.local
+```
+
+---
+
+# DNS Zone Types
+
+## Primary Zone
+
+Stores the original writable copy of DNS records.
+
+Changes can be made directly on the Primary Zone.
+
+---
+
+## Secondary Zone
+
+Stores a read-only copy of the Primary Zone.
+
+Used for redundancy and load balancing.
+
+---
+
+## Stub Zone
+
+Stores only essential DNS records required to locate authoritative DNS servers.
+
+Used to improve name resolution between different DNS namespaces.
+
+---
+
+# Types of DNS Records
+
+## A Record (Host Record)
+
+Maps a hostname to an IPv4 address.
+
+Example:
+
+```text
+server01
+
+↓
+
+192.168.1.10
+```
+
+---
+
+## AAAA Record
+
+Maps a hostname to an IPv6 address.
+
+---
+
+## CNAME Record
+
+Creates an alias for another hostname.
+
+Example:
+
+```text
+mail.company.local
+
+↓
+
+server01.company.local
+```
+
+---
+
+## MX Record
+
+Specifies the mail server responsible for receiving email.
+
+---
+
+## NS Record
+
+Identifies the authoritative DNS server for a zone.
+
+---
+
+## PTR Record
+
+Used in Reverse Lookup Zones to map an IP address to a hostname.
+
+---
+
+## SOA Record (Start of Authority)
+
+Stores information about the DNS zone, such as the primary DNS server, administrator, and replication settings.
+
+---
+
+# Lab Requirement
+
+For this lab, I used:
+
+| System | Purpose |
+|---------|---------|
+| DC01 | Windows Server with DNS Role |
+| Client01 | Domain-Joined Windows Client |
+
+---
+
+# Installing the DNS Server Role
+
+### Steps
+
+1. Open **Server Manager**.
+2. Click **Manage**.
+3. Select **Add Roles and Features**.
+4. Choose **Role-based or feature-based installation**.
+5. Select the local server.
+6. Select **DNS Server**.
+7. Click **Add Features**.
+8. Click **Next**.
+9. Click **Install**.
+10. Wait for the installation to complete.
+
+---
+
+# Creating a Forward Lookup Zone (FL Zone)
+
+A **Forward Lookup Zone** resolves host names to IP addresses.
+
+### Steps
+
+1. Open **DNS Manager** (`dnsmgmt.msc`).
+2. Expand the server.
+3. Right-click **Forward Lookup Zones**.
+4. Select **New Zone**.
+5. Click **Next**.
+6. Select **Primary Zone**.
+7. Store the zone in Active Directory (if applicable).
+8. Enter the Zone Name.
+
+Example:
+
+```text
+company.local
+```
+
+9. Allow only secure dynamic updates (recommended for AD environments).
+10. Click **Finish**.
+
+---
+
+# Creating Host (A) Records
+
+### Steps
+
+1. Open **Forward Lookup Zones**.
+2. Select your zone.
+3. Right-click the zone.
+4. Select **New Host (A or AAAA)**.
+5. Enter the Host Name.
+
+Example:
+
+```text
+DC01
+```
+
+6. Enter the IP Address.
+
+Example:
+
+```text
+192.168.1.10
+```
+
+7. Select **Create associated PTR record** (optional).
+8. Click **Add Host**.
+
+---
+
+# Creating a Reverse Lookup Zone (RL Zone)
+
+A **Reverse Lookup Zone** resolves IP addresses to host names.
+
+### Steps
+
+1. Open **DNS Manager**.
+2. Right-click **Reverse Lookup Zones**.
+3. Select **New Zone**.
+4. Click **Next**.
+5. Select **Primary Zone**.
+6. Choose **IPv4 Reverse Lookup Zone**.
+7. Enter the Network ID.
+
+Example:
+
+```text
+192.168.1
+```
+
+8. Allow secure dynamic updates (if using AD).
+9. Click **Finish**.
+
+---
+
+# Creating PTR Records
+
+### Steps
+
+1. Open **Reverse Lookup Zones**.
+2. Select the zone.
+3. Right-click the zone.
+4. Select **New Pointer (PTR)**.
+5. Enter the Host IP Number.
+
+Example:
+
+```text
+10
+```
+
+6. Enter the Host Name.
+
+Example:
+
+```text
+DC01.company.local
+```
+
+7. Click **OK**.
+
+---
+
+# Verifying DNS
+
+Test Forward Lookup:
+
+```cmd
+nslookup dc01.company.local
+```
+
+Test Reverse Lookup:
+
+```cmd
+nslookup 192.168.1.10
+```
+
+Display DNS cache:
+
+```cmd
+ipconfig /displaydns
+```
+
+Flush DNS cache:
+
+```cmd
+ipconfig /flushdns
+```
+
+---
+
+# What I Learned
+
+In this lab, I installed and configured the DNS Server role on Windows Server, created Forward Lookup and Reverse Lookup Zones, added Host (A) and PTR records, and verified DNS name resolution using Windows tools. I also learned how DNS resolves domain names, the DNS hierarchy, different zone types, common DNS records, and basic troubleshooting techniques for DNS-related issues.
+````
