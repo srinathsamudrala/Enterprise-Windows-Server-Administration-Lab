@@ -1,4 +1,3 @@
-````md id="kw481m"
 # Storage Management
 
 ## What is Storage Management?
